@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Config</class>
+ <widget class="QDialog" name="Config">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>439</width>
+    <height>333</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>290</y>
+     <width>171</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>441</width>
+     <height>291</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>2</number>
+   </property>
+   <widget class="QWidget" name="tab">
+    <attribute name="title">
+     <string>Paths</string>
+    </attribute>
+    <widget class="QLineEdit" name="bin_input_box">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>321</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="bin_browse_button">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>30</y>
+       <width>31</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Browse for XQEMU bin</string>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="bin_label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>141</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>XQEMU bin path</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="mcpx_input_box">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>321</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="mcpx_label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>141</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>MCPX ROM path</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="mcpx_browse_button">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>80</y>
+       <width>31</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="flash_label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>110</y>
+       <width>141</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Flash ROM path</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="flash_input_box">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>130</y>
+       <width>321</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="flash_browse_button">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>130</y>
+       <width>31</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="hdd_label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>160</y>
+       <width>141</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>HDD path</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="hdd_input_box">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>180</y>
+       <width>321</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="hdd_browse_button">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>180</y>
+       <width>31</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_2">
+    <attribute name="title">
+     <string>Flags</string>
+    </attribute>
+    <widget class="QCheckBox" name="expand_ram">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>131</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>128 MB RAM</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="full_boot_anim">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>221</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Show full boot animation</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="hdd_unlocked">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>100</y>
+       <width>221</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Unlocked HDD</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_3">
+    <attribute name="title">
+     <string>Input</string>
+    </attribute>
+    <widget class="QLabel" name="controller_label_1">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>101</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Controller 1</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="controller_label_2">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>20</y>
+       <width>101</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Controller 2</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="controller_label_3">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>110</y>
+       <width>101</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Controller 3</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="controller_label_4">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>110</y>
+       <width>101</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Controller 4</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="controller_bool_1">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>40</y>
+       <width>105</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Plugged in</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="controller_bool_2">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>40</y>
+       <width>105</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Plugged in</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="controller_bool_3">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>130</y>
+       <width>105</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Plugged in</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="controller_bool_4">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>130</y>
+       <width>105</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Plugged in</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="controller_select_1">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>70</y>
+       <width>161</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="editable">
+      <bool>false</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string/>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Keyboard</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="controller_select_2">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>70</y>
+       <width>161</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="editable">
+      <bool>false</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string/>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Keyboard</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="controller_select_3">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>160</y>
+       <width>161</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="editable">
+      <bool>false</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string/>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Keyboard</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="controller_select_4">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>160</y>
+       <width>161</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="editable">
+      <bool>false</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string/>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Keyboard</string>
+      </property>
+     </item>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>Config</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Config</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
