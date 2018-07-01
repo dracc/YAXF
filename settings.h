@@ -12,6 +12,7 @@ public:
     bool expanded_ram = false;
     bool full_boot_anim = false;
     bool hdd_unlocked = false;
+    int ctrl_1 = 0;
 };
 
 #endif // SETTINGS_H

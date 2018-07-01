@@ -43,3 +43,5 @@ RESOURCES += \
     icons.qrc
 
 DISTFILES +=
+
+LIBS += -L/usr/local/lib -lusb-1.0

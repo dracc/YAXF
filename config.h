@@ -15,7 +15,8 @@ class Config : public QDialog
     Q_OBJECT
 
 public:
-    explicit Config(QWidget *parent = 0, settings* sett = nullptr);
+    explicit Config(QWidget *parent = 0, settings* sett = nullptr,
+                    QVector<QPair<int,int>> *controllers = nullptr);
     ~Config();
 
 private slots:
@@ -29,8 +30,11 @@ private slots:
 
     void on_hdd_browse_button_clicked();
 
+    void on_controller_select_1_currentIndexChanged(int index);
+
 private:
     settings *sett;
+    QVector<QPair<int,int>> *controllers;
     Ui::Config *ui;
 };
 

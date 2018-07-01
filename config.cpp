@@ -2,12 +2,19 @@
 #include "ui_config.h"
 
 #include <QFileDialog>
-#include <QtGamepad/QGamepadManager>
 #include <string>
+#include <QPair>
+#include <QVector>
 
-Config::Config(QWidget *parent, settings *sett) :
+extern "C" {
+#include <libusb-1.0/libusb.h>
+}
+
+Config::Config(QWidget *parent, settings *sett,
+               QVector<QPair<int,int>> *controllers) :
     QDialog(parent),
     sett(sett),
+    controllers(controllers),
     ui(new Ui::Config)
 {
     ui->setupUi(this);
@@ -18,12 +25,12 @@ Config::Config(QWidget *parent, settings *sett) :
     ui->expand_ram->setChecked(sett->expanded_ram);
     ui->full_boot_anim->setChecked(sett->full_boot_anim);
     ui->hdd_unlocked->setChecked(sett->hdd_unlocked);
-    for(int i = 0; i < QGamepadManager::instance()->connectedGamepads().size(); ++i){
-        ui->controller_select_1->addItem(QGamepadManager::instance()->gamepadName(i), i);
-        ui->controller_select_2->addItem(QGamepadManager::instance()->gamepadName(i), i);
-        ui->controller_select_3->addItem(QGamepadManager::instance()->gamepadName(i), i);
-        ui->controller_select_4->addItem(QGamepadManager::instance()->gamepadName(i), i);
+
+    for(int q(0); q < controllers->size(); ++q){
+        ui->controller_select_1->addItem(QString("asd"), q);
     }
+
+    ui->controller_select_1->setCurrentIndex(sett->ctrl_1);
 }
 
 Config::~Config()
@@ -84,4 +91,10 @@ void Config::on_hdd_browse_button_clicked()
         ui->hdd_input_box->setText(sett->hdd_path);
         storeSetting("hddPath", tmp);
     }
+}
+
+void Config::on_controller_select_1_currentIndexChanged(int index)
+{
+    sett->ctrl_1 = index;
+    storeSetting("ctrl_1", index);
 }

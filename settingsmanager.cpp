@@ -14,6 +14,7 @@ void initSettings(settings *sett){
     sett->expanded_ram = settingsFile.value("expandedRAM", false).toBool();
     sett->full_boot_anim = settingsFile.value("fullBootAnim", false).toBool();
     sett->hdd_unlocked = settingsFile.value("hddUnlocked", false).toBool();
+    sett->ctrl_1 = settingsFile.value("ctrl_1", 0).toInt();
 }
 
 void storeSetting(QString const& key, QVariant const& variant){
