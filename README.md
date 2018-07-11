@@ -1,5 +1,4 @@
-# XQEMU Dash
-
+# YAXF
 A simple yet powerful tool for configuring your XQEMU session.
 
 ## Requirements

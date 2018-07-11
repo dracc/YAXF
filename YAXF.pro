@@ -8,7 +8,7 @@ QT       += core gui gamepad
 QMAKE_LFLAGS += -no-pie
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = xqemu-dash
+TARGET = YAXF
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
