@@ -4,6 +4,10 @@
 #include "settings.h"
 #include "settingsmanager.h"
 
+extern "C"{
+#include <libusb-1.0/libusb.h>
+}
+
 #include <QDialog>
 
 namespace Ui {
@@ -16,7 +20,7 @@ class Config : public QDialog
 
 public:
     explicit Config(QWidget *parent = 0, settings* sett = nullptr,
-                    QVector<QPair<int,int>> *controllers = nullptr);
+                    QVector<libusb_device *> *controllers = nullptr);
     ~Config();
 
 private slots:
@@ -24,7 +28,7 @@ private slots:
 
     void on_bin_browse_button_clicked();
 
-    void on_xcmp_browse_button_clicked();
+    void on_mcpx_browse_button_clicked();
 
     void on_flash_browse_button_clicked();
 
@@ -32,9 +36,11 @@ private slots:
 
     void on_controller_select_1_currentIndexChanged(int index);
 
+    void on_xiso_browse_button_clicked();
+
 private:
     settings *sett;
-    QVector<QPair<int,int>> *controllers;
+    QVector<libusb_device *> *controllers;
     Ui::Config *ui;
 };
 

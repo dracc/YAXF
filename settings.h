@@ -9,6 +9,7 @@ public:
     QString mcpx_path{""};
     QString flash_path{""};
     QString hdd_path{""};
+    QString xiso_path{""};
     bool expanded_ram = false;
     bool full_boot_anim = false;
     bool hdd_unlocked = false;

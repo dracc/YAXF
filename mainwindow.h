@@ -4,6 +4,9 @@
 #include "settings.h"
 
 #include <QMainWindow>
+#include <QDirIterator>
+#include <QListWidgetItem>
+#include <QString>
 
 extern "C" {
 #include <libusb-1.0/libusb.h>
@@ -21,7 +24,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    QVector<QPair<int,int>> xbox_controllers;
+    QVector<libusb_device *> xbox_controllers;
 
 private slots:
     void on_actionConfigure_triggered();
@@ -29,6 +32,8 @@ private slots:
     void on_actionQuit_triggered();
 
     void on_actionRun_ISO_triggered();
+
+    void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
 
 private:
     Ui::MainWindow *ui;
@@ -39,6 +44,8 @@ private:
     libusb_device *iterator = NULL;
     libusb_device_descriptor desc = {0};
     int num_devices;
+
+    void RunGame(QString const& path);
 };
 
 #endif // MAINWINDOW_H

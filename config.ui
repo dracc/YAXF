@@ -39,7 +39,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -187,6 +187,45 @@
       <rect>
        <x>340</x>
        <y>180</y>
+       <width>31</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="xiso_input_box">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>230</y>
+       <width>321</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="xiso_label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>210</y>
+       <width>141</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>XISOs path</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="xiso_browse_button">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>230</y>
        <width>31</width>
        <height>21</height>
       </rect>

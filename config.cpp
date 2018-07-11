@@ -6,12 +6,8 @@
 #include <QPair>
 #include <QVector>
 
-extern "C" {
-#include <libusb-1.0/libusb.h>
-}
-
 Config::Config(QWidget *parent, settings *sett,
-               QVector<QPair<int,int>> *controllers) :
+               QVector<libusb_device *> *controllers) :
     QDialog(parent),
     sett(sett),
     controllers(controllers),
@@ -22,12 +18,23 @@ Config::Config(QWidget *parent, settings *sett,
     ui->mcpx_input_box->setText(sett->mcpx_path);
     ui->flash_input_box->setText(sett->flash_path);
     ui->hdd_input_box->setText(sett->hdd_path);
+    ui->xiso_input_box->setText(sett->xiso_path);
     ui->expand_ram->setChecked(sett->expanded_ram);
     ui->full_boot_anim->setChecked(sett->full_boot_anim);
     ui->hdd_unlocked->setChecked(sett->hdd_unlocked);
-
+    libusb_device_descriptor desc;
     for(int q(0); q < controllers->size(); ++q){
-        ui->controller_select_1->addItem(QString("asd"), q);
+        libusb_device *p = controllers->at(q);
+        desc = {0};
+        int y = libusb_get_device_descriptor(p, &desc);
+        QString DeviceName;
+        if(desc.idProduct == 0x202){
+            DeviceName = "Xbox Duke";
+        }
+        else{
+            DeviceName = "Xbox Controller S";
+        }
+        ui->controller_select_1->addItem(DeviceName, q);
     }
 
     ui->controller_select_1->setCurrentIndex(sett->ctrl_1);
@@ -63,13 +70,13 @@ void Config::on_bin_browse_button_clicked()
     }
 }
 
-void Config::on_xcmp_browse_button_clicked()
+void Config::on_mcpx_browse_button_clicked()
 {
     QString tmp = QFileDialog::getOpenFileName(this, 0, "", "Binary files (*.bin);;All files (*.*)");
     if(tmp != ""){
         sett->mcpx_path = tmp;
         ui->mcpx_input_box->setText(sett->mcpx_path);
-        storeSetting("xcmpPath", tmp);
+        storeSetting("mcpxPath", tmp);
     }
 }
 
@@ -97,4 +104,14 @@ void Config::on_controller_select_1_currentIndexChanged(int index)
 {
     sett->ctrl_1 = index;
     storeSetting("ctrl_1", index);
+}
+
+void Config::on_xiso_browse_button_clicked()
+{
+    QString tmp = QFileDialog::getExistingDirectory(this);
+    if(tmp != ""){
+        sett->xiso_path = tmp;
+        ui->xiso_input_box->setText(sett->xiso_path);
+        storeSetting("xisoPath", tmp);
+    }
 }

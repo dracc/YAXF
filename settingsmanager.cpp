@@ -10,6 +10,7 @@ void initSettings(settings *sett){
     sett->bin_path = settingsFile.value("binPath", "./i386-softmmu/qemu-system-i386").toString();
     sett->mcpx_path = settingsFile.value("mcpxPath", emulationPath + "/mcpxv1.0.bin").toString();
     sett->flash_path = settingsFile.value("flashPath", emulationPath + "/bios.bin").toString();
+    sett->xiso_path = settingsFile.value("xisoPath", emulationPath + "/").toString();
     sett->hdd_path = settingsFile.value("hddPath", emulationPath + "/xbox_hdd.qcow2").toString();
     sett->expanded_ram = settingsFile.value("expandedRAM", false).toBool();
     sett->full_boot_anim = settingsFile.value("fullBootAnim", false).toBool();
