@@ -480,6 +480,11 @@
      </item>
     </widget>
    </widget>
+   <widget class="QWidget" name="tab_4">
+    <attribute name="title">
+     <string>Network</string>
+    </attribute>
+   </widget>
   </widget>
  </widget>
  <resources/>

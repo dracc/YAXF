@@ -46,6 +46,9 @@
     <property name="title">
      <string>Configuration</string>
     </property>
+    <addaction name="actionPaths"/>
+    <addaction name="actionControls"/>
+    <addaction name="actionNetwork"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -92,11 +95,14 @@
    <property name="text">
     <string>Exit</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
   </action>
   <action name="actionConfigure">
    <property name="icon">
     <iconset resource="icons.qrc">
-     <normaloff>:/omg.png</normaloff>:/omg.png</iconset>
+     <normaloff>:/cog.svg</normaloff>:/cog.svg</iconset>
    </property>
    <property name="text">
     <string>Configure</string>
@@ -105,6 +111,24 @@
   <action name="actionRun_ISO">
    <property name="text">
     <string>Run .ISO</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionControls">
+   <property name="text">
+    <string>Controls</string>
+   </property>
+  </action>
+  <action name="actionNetwork">
+   <property name="text">
+    <string>Network</string>
+   </property>
+  </action>
+  <action name="actionPaths">
+   <property name="text">
+    <string>Paths</string>
    </property>
   </action>
  </widget>

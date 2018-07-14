@@ -20,9 +20,10 @@ class Config : public QDialog
 
 public:
     explicit Config(QWidget *parent = 0, settings* sett = nullptr,
-                    QVector<libusb_device *> *controllers = nullptr);
+                    QVector<libusb_device *> *controllers = nullptr, int tabselect = 0);
     ~Config();
 
+    Ui::Config *ui;
 private slots:
     void on_buttonBox_accepted();
 
@@ -41,7 +42,6 @@ private slots:
 private:
     settings *sett;
     QVector<libusb_device *> *controllers;
-    Ui::Config *ui;
 };
 
 #endif // CONFIG_H

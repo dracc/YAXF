@@ -36,7 +36,8 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     QDirIterator qdit(sett->xiso_path, QStringList() << "*.iso", QDir::Files, QDirIterator::Subdirectories);
     while(qdit.hasNext()){
-        ui->listWidget->addItem(qdit.next());
+        QListWidgetItem *q = new QListWidgetItem(QIcon(":/dvd.svg"), qdit.next());
+        ui->listWidget->addItem(q);
     }
 }
 
@@ -47,10 +48,14 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::openConfigWindow(int tab){
+    Config* c = new Config(this, sett, &xbox_controllers, tab);
+    c->show();
+}
+
 void MainWindow::on_actionConfigure_triggered()
 {
-    Config* c = new Config(this, sett, &xbox_controllers);
-    c->show();
+    openConfigWindow();
 }
 
 void MainWindow::on_actionQuit_triggered()
@@ -95,4 +100,19 @@ void MainWindow::on_actionRun_ISO_triggered()
 void MainWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 {
     RunGame(item->text());
+}
+
+void MainWindow::on_actionControls_triggered()
+{
+    openConfigWindow(2);
+}
+
+void MainWindow::on_actionPaths_triggered()
+{
+    openConfigWindow(0);
+}
+
+void MainWindow::on_actionNetwork_triggered()
+{
+    openConfigWindow(3);
 }

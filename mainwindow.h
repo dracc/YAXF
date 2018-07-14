@@ -35,6 +35,12 @@ private slots:
 
     void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
 
+    void on_actionControls_triggered();
+
+    void on_actionPaths_triggered();
+
+    void on_actionNetwork_triggered();
+
 private:
     Ui::MainWindow *ui;
     settings *sett;
@@ -45,6 +51,7 @@ private:
     libusb_device_descriptor desc = {0};
     int num_devices;
 
+    void openConfigWindow(int tab = 0);
     void RunGame(QString const& path);
 };
 

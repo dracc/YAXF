@@ -7,13 +7,14 @@
 #include <QVector>
 
 Config::Config(QWidget *parent, settings *sett,
-               QVector<libusb_device *> *controllers) :
+               QVector<libusb_device *> *controllers, int tabselect) :
     QDialog(parent),
     sett(sett),
     controllers(controllers),
     ui(new Ui::Config)
 {
     ui->setupUi(this);
+    ui->tabWidget->setCurrentIndex(tabselect);
     ui->bin_input_box->setText(sett->bin_path);
     ui->mcpx_input_box->setText(sett->mcpx_path);
     ui->flash_input_box->setText(sett->flash_path);
