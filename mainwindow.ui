@@ -14,16 +14,11 @@
    <string>YAXF</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QListWidget" name="listWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>1</y>
-      <width>621</width>
-      <height>251</height>
-     </rect>
-    </property>
-   </widget>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QListWidget" name="listWidget"/>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -31,7 +26,7 @@
      <x>0</x>
      <y>0</y>
      <width>619</width>
-     <height>24</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
