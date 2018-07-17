@@ -5,14 +5,15 @@ include(FindPkgConfig)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 
 set(sources config.cpp
     main.cpp
     mainwindow.cpp
     settingsmanager.cpp
-    icons.qrc)
+    )
 
-add_executable(${PROJECT_NAME} ${sources} ${data})
+add_executable(${PROJECT_NAME} ${sources} ${data} icons.qrc)
 
 target_compile_options(${PROJECT_NAME} PUBLIC -std=c++1y -Wall)
 
