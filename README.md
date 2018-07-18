@@ -2,9 +2,9 @@
 A simple yet powerful tool for configuring your XQEMU session.
 
 ## Requirements
-Qt >= 5.8  
-libusb >= 1.0.20
-cmake >= 3.8
+- Qt >= 5.8  
+- libusb >= 1.0.20
+- cmake >= 3.8
 
 To install these in Debian/Ubuntu/etc. run the following command
 in a terminal window:  
