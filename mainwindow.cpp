@@ -18,18 +18,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     sett = new settings;
     initSettings(sett);
-    int bus_number, dev_addr;
 
-    int rc = libusb_init(&context);
+    libusb_init(&context);
     num_devices = libusb_get_device_list(context, &device_list);
     for(int i = 0; i < num_devices; ++i){
         iterator = device_list[i];
         desc = {0};
-        rc = libusb_get_device_descriptor(iterator, &desc);
-        bus_number = libusb_get_bus_number(iterator);
-        dev_addr = libusb_get_device_address(iterator);
+        libusb_get_device_descriptor(iterator, &desc);
         if(desc.idVendor == 0x045e){
-            if(desc.idProduct == 0x202 | desc.idProduct == 0x289){
+            if(desc.idProduct == 0x202 || desc.idProduct == 0x289){
                 xbox_controllers.push_back(iterator);
             }
         }
