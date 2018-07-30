@@ -61,7 +61,7 @@ void MainWindow::on_actionQuit_triggered()
 }
 
 void MainWindow::RunGame(QString const& path){
-    QProcess process;
+    QProcess *process = new QProcess();
     QStringList args;
     args << "-cpu" << "pentium3";
     args << "-machine" << "xbox,bootrom=" + sett->mcpx_path + (sett->full_boot_anim ? "":",short_animation");
@@ -83,7 +83,9 @@ void MainWindow::RunGame(QString const& path){
     for(auto q: args){
         std::cout << q.toStdString() << std::endl;
     }
-    process.execute(sett->bin_path, args);
+    connect(process, &QProcess::started, [&](){this->hide();});
+    connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), [&](){this->show();free(process);});
+    process->start(sett->bin_path, args);
 }
 
 void MainWindow::on_actionRun_ISO_triggered()
