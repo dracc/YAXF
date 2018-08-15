@@ -37,6 +37,12 @@ private slots:
 
     void on_controller_select_1_currentIndexChanged(int index);
 
+    void on_controller_select_2_currentIndexChanged(int index);
+
+    void on_controller_select_3_currentIndexChanged(int index);
+
+    void on_controller_select_4_currentIndexChanged(int index);
+
     void on_xiso_browse_button_clicked();
 
 private:

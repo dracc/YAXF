@@ -16,6 +16,13 @@ void initSettings(settings *sett){
     sett->full_boot_anim = settingsFile.value("fullBootAnim", false).toBool();
     sett->hdd_unlocked = settingsFile.value("hddUnlocked", false).toBool();
     sett->ctrl_1 = settingsFile.value("ctrl_1", 0).toInt();
+    sett->ctrl_2 = settingsFile.value("ctrl_2", 0).toInt();
+    sett->ctrl_3 = settingsFile.value("ctrl_3", 0).toInt();
+    sett->ctrl_4 = settingsFile.value("ctrl_4", 0).toInt();
+    sett->c_1_plugged = settingsFile.value("C1Plugged", false).toBool();
+    sett->c_2_plugged = settingsFile.value("C2Plugged", false).toBool();
+    sett->c_3_plugged = settingsFile.value("C3Plugged", false).toBool();
+    sett->c_4_plugged = settingsFile.value("C4Plugged", false).toBool();
 }
 
 void storeSetting(QString const& key, QVariant const& variant){

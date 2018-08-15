@@ -23,6 +23,10 @@ Config::Config(QWidget *parent, settings *sett,
     ui->expand_ram->setChecked(sett->expanded_ram);
     ui->full_boot_anim->setChecked(sett->full_boot_anim);
     ui->hdd_unlocked->setChecked(sett->hdd_unlocked);
+    ui->controller_bool_1->setChecked(sett->c_1_plugged);
+    ui->controller_bool_2->setChecked(sett->c_2_plugged);
+    ui->controller_bool_3->setChecked(sett->c_3_plugged);
+    ui->controller_bool_4->setChecked(sett->c_4_plugged);
     libusb_device_descriptor desc;
     for(int q(0); q < controllers->size(); ++q){
         libusb_device *p = controllers->at(q);
@@ -36,9 +40,15 @@ Config::Config(QWidget *parent, settings *sett,
             DeviceName = "Xbox Controller S";
         }
         ui->controller_select_1->addItem(DeviceName, q);
+        ui->controller_select_2->addItem(DeviceName, q);
+        ui->controller_select_3->addItem(DeviceName, q);
+        ui->controller_select_4->addItem(DeviceName, q);
     }
 
     ui->controller_select_1->setCurrentIndex(sett->ctrl_1);
+    ui->controller_select_2->setCurrentIndex(sett->ctrl_2);
+    ui->controller_select_3->setCurrentIndex(sett->ctrl_3);
+    ui->controller_select_4->setCurrentIndex(sett->ctrl_4);
 }
 
 Config::~Config()
@@ -59,6 +69,10 @@ void Config::on_buttonBox_accepted()
     checkSetBool(sett->expanded_ram, ui->expand_ram->isChecked(), "expandedRAM");
     checkSetBool(sett->full_boot_anim, ui->full_boot_anim->isChecked(), "fullBootAnim");
     checkSetBool(sett->hdd_unlocked, ui->hdd_unlocked->isChecked(), "hddUnlocked");
+    checkSetBool(sett->c_1_plugged, ui->controller_bool_1->isChecked(), "C1Plugged");
+    checkSetBool(sett->c_2_plugged, ui->controller_bool_2->isChecked(), "C2Plugged");
+    checkSetBool(sett->c_3_plugged, ui->controller_bool_3->isChecked(), "C3Plugged");
+    checkSetBool(sett->c_4_plugged, ui->controller_bool_4->isChecked(), "C4Plugged");
 }
 
 void Config::on_bin_browse_button_clicked()
@@ -105,6 +119,24 @@ void Config::on_controller_select_1_currentIndexChanged(int index)
 {
     sett->ctrl_1 = index;
     storeSetting("ctrl_1", index);
+}
+
+void Config::on_controller_select_2_currentIndexChanged(int index)
+{
+    sett->ctrl_2 = index;
+    storeSetting("ctrl_2", index);
+}
+
+void Config::on_controller_select_3_currentIndexChanged(int index)
+{
+    sett->ctrl_3 = index;
+    storeSetting("ctrl_3", index);
+}
+
+void Config::on_controller_select_4_currentIndexChanged(int index)
+{
+    sett->ctrl_4 = index;
+    storeSetting("ctrl_4", index);
 }
 
 void Config::on_xiso_browse_button_clicked()

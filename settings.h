@@ -14,6 +14,13 @@ public:
     bool full_boot_anim = false;
     bool hdd_unlocked = false;
     int ctrl_1 = 0;
+    int ctrl_2 = 0;
+    int ctrl_3 = 0;
+    int ctrl_4 = 0;
+    bool c_1_plugged = false;
+    bool c_2_plugged = false;
+    bool c_3_plugged = false;
+    bool c_4_plugged = false;
 };
 
 #endif // SETTINGS_H
