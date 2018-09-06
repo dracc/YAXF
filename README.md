@@ -1,6 +1,6 @@
 # YAXF
 A simple yet powerful tool for configuring your XQEMU session.
-<img src="https://ci.appveyor.com/api/projects/status/github/gruntjs/grunt">
+<a href="https://ci.appveyor.com/project/dracc/yaxf/build/artifacts"><img src="https://ci.appveyor.com/api/projects/status/github/dracc/YAXF"></a>
 
 ## Requirements
 - Qt >= 5.8  
