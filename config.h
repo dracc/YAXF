@@ -5,7 +5,7 @@
 #include "settingsmanager.h"
 
 extern "C"{
-#include <libusb-1.0/libusb.h>
+#include <libusb.h>
 }
 
 #include <QDialog>
