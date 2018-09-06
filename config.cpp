@@ -9,9 +9,10 @@
 Config::Config(QWidget *parent, settings *sett,
                QVector<libusb_device *> *controllers, int tabselect) :
     QDialog(parent),
+    ui(new Ui::Config),
     sett(sett),
-    controllers(controllers),
-    ui(new Ui::Config)
+    controllers(controllers)
+
 {
     ui->setupUi(this);
     ui->tabWidget->setCurrentIndex(tabselect);

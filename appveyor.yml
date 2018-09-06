@@ -1,0 +1,14 @@
+environment:
+  matrix:
+    - MSYS2_ARCH: x86_64
+      MSYSTEM: MINGW64
+
+build_script:
+  - '%APPVEYOR_BUILD_FOLDER%\appveyor.bat'
+
+deploy: off
+
+artifacts:
+  - path: dist
+    name: xqemu
+    type: zip
