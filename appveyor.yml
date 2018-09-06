@@ -8,7 +8,10 @@ build_script:
 
 deploy: off
 
+after_build:
+#  - 7z a YAXF_debug.zip .\debug\*
+  - 7z a YAXF_release.zip .\release\*
+
 artifacts:
-  - path: build\YAXF.exe
-    name: YAXF
-    type: zip
+#  - path: YAXF_debug.zip
+  - path: YAXF_release.zip
