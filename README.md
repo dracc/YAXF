@@ -1,5 +1,6 @@
 # YAXF
 A simple yet powerful tool for configuring your XQEMU session.
+<img src="https://ci.appveyor.com/api/projects/status/github/gruntjs/grunt">
 
 ## Requirements
 - Qt >= 5.8  
