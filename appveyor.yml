@@ -9,6 +9,6 @@ build_script:
 deploy: off
 
 artifacts:
-  - path: dist
-    name: xqemu
+  - path: build\YAXF.exe
+    name: YAXF
     type: zip
