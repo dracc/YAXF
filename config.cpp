@@ -135,3 +135,20 @@ void Config::on_xiso_browse_button_clicked()
         settingsManager::storeSetting("xisoPath", tmp);
     }
 }
+
+void Config::on_extraArguments_textChanged()
+{
+    QString extras = ui->extraArguments->toPlainText();
+    QStringList extraArgs = extras.split(" ");
+    ui->currentArguments->setPlainText(sett->bin_path
+                                       + " " +  args.join(" ")
+                                       + " " + extraArgs.join(" "));
+}
+
+void Config::on_tabWidget_currentChanged(int index)
+{
+    if(index == 4){
+        args = settingsManager::genArgs(sett, "<.iso>", *controllers);
+        on_extraArguments_textChanged();
+    }
+}
