@@ -72,7 +72,7 @@ void MainWindow::RunGame(QString const& path){
     args << "-bios" << sett->flash_path;
     args << "-drive" << "file=" + sett->hdd_path + ",index=0,media=disk" + (sett->hdd_unlocked ? "" : ",locked");
     args << "-drive" << "file=" + path + ",index=1,media=cdrom";
-    args << "-redir" << "tcp:8731::731" << "-redir" << "tcp:9269::9269";
+    args << "-net" << "nic,model=nvnet" << "-net" << "user,hostfwd=tcp::9269-:9269,hostfwd=tcp::8731-:731";
     for(int i = 0; i < 4; i++){
         if(ctrlr_plugged[i]){
             if(ctrlr_indices[i] >= 2){
