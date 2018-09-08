@@ -89,9 +89,11 @@ void MainWindow::RunGame(QString const& path){
         }
     }
     args << "-display" << "sdl";
+    std::cout << sett->bin_path.toStdString() << " " << std::flush;
     for(auto q: args){
-        std::cout << q.toStdString() << std::endl;
+        std::cout << q.toStdString() << " " << std::flush;
     }
+    std::cout << std::endl;
     connect(process, &QProcess::started, [&](){this->hide();});
     connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), [&](){this->show();});
     process->start(sett->bin_path, args);
