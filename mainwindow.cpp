@@ -68,10 +68,13 @@ void MainWindow::RunGame(QString const& path){
     QVector<int> ctrlr_indices{sett->ctrl_1, sett->ctrl_2, sett->ctrl_3, sett->ctrl_4};
     QVector<int> ctrlr_port{3,4,1,2};
     args << "-cpu" << "pentium3";
-    args << "-machine" << "xbox,bootrom=" + sett->mcpx_path + (sett->full_boot_anim ? "":",short_animation");
-    args << QString("-m") << QString(sett->expanded_ram ? "128":"64");
+    args << "-machine" << "xbox,bootrom=" + sett->mcpx_path +
+            (sett->full_boot_anim ? "":",short_animation") +
+            (sett->kvm ? ",accel=kvm,kernel_irqchip=off":"");
+    args << "-m" << (sett->expanded_ram ? "128":"64");
     args << "-bios" << sett->flash_path;
-    args << "-drive" << "file=" + sett->hdd_path + ",index=0,media=disk" + (sett->hdd_unlocked ? "" : ",locked");
+    args << "-drive" << "file=" + sett->hdd_path + ",index=0,media=disk" +
+            (sett->hdd_unlocked ? "" : ",locked");
     args << "-drive" << "file=" + path + ",index=1,media=cdrom";
     args << "-net" << "nic,model=nvnet" << "-net" << "user,hostfwd=tcp::9269-:9269,hostfwd=tcp::8731-:731";
     for(int i = 0; i < 4; i++){
@@ -80,11 +83,13 @@ void MainWindow::RunGame(QString const& path){
                 int hostbus = libusb_get_bus_number(xbox_controllers.at(ctrlr_indices[i] - 2));
                 int hostaddr = libusb_get_device_address(xbox_controllers.at(ctrlr_indices[i] - 2));
                 args << "-usb" << "-device"
-                     << "usb-host,port=" + QString::number(ctrlr_port[i]) + ",hostbus=" + QString::number(hostbus) +
+                     << "usb-host,port=" + QString::number(ctrlr_port[i]) +
+                        ",hostbus=" + QString::number(hostbus) +
                         ",hostaddr=" + QString::number(hostaddr);
             }
             else{
-                args << "-usb" << "-device" << "usb-xbox-gamepad,port=" + QString::number(ctrlr_port[i]);
+                args << "-usb" << "-device" << "usb-xbox-gamepad,port=" +
+                        QString::number(ctrlr_port[i]);
             }
         }
     }

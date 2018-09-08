@@ -28,6 +28,10 @@ Config::Config(QWidget *parent, settings *sett,
     ui->controller_bool_2->setChecked(sett->c_2_plugged);
     ui->controller_bool_3->setChecked(sett->c_3_plugged);
     ui->controller_bool_4->setChecked(sett->c_4_plugged);
+    ui->enable_kvm->setChecked(sett->kvm);
+#ifndef __linux
+    ui->enable_kvm->setVisible(false);
+#endif
     libusb_device_descriptor desc;
     for(int q(0); q < controllers->size(); ++q){
         libusb_device *p = controllers->at(q);
@@ -74,6 +78,7 @@ void Config::on_buttonBox_accepted()
     checkSetBool(sett->c_2_plugged, ui->controller_bool_2->isChecked(), "C2Plugged");
     checkSetBool(sett->c_3_plugged, ui->controller_bool_3->isChecked(), "C3Plugged");
     checkSetBool(sett->c_4_plugged, ui->controller_bool_4->isChecked(), "C4Plugged");
+    checkSetBool(sett->kvm, ui->enable_kvm->isChecked(), "enableKVM");
 }
 
 void Config::on_bin_browse_button_clicked()

@@ -23,6 +23,11 @@ void initSettings(settings *sett){
     sett->c_2_plugged = settingsFile.value("C2Plugged", false).toBool();
     sett->c_3_plugged = settingsFile.value("C3Plugged", false).toBool();
     sett->c_4_plugged = settingsFile.value("C4Plugged", false).toBool();
+#ifdef __linux
+    sett->kvm = settingsFile.value("enableKVM", false).toBool();
+#else
+    sett->kvm = false;
+#endif
 }
 
 void storeSetting(QString const& key, QVariant const& variant){
