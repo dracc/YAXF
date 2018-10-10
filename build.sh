@@ -5,4 +5,6 @@ export CXX=g++
 mkdir build
 cd build
 cmake .. -G "MSYS Makefiles"
-make VERBOSE=1
+make
+
+strip YAXF.exe

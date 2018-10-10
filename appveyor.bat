@@ -18,17 +18,23 @@ rem Install required tools
 bash -xlc "pacman --noconfirm -S --needed base-devel"
 
 rem Install the relevant native dependencies
-bash -xlc "pacman --noconfirm -S --needed git"
-bash -xlc "pacman --noconfirm -S --needed mingw-w64-x86_64-cmake"
-bash -xlc "pacman --noconfirm -S --needed mingw-w64-x86_64-make"
-bash -xlc "pacman --noconfirm -S --needed mingw-w64-x86_64-libusb mingw-w64-x86_64-jasper"
-bash -xlc "pacman --noconfirm -S --needed mingw-w64-x86_64-qt5-static"
+bash -lc "pacman --noconfirm -S --needed git"
+bash -lc "pacman --noconfirm -S --needed mingw-w64-x86_64-cmake"
+bash -lc "pacman --noconfirm -S --needed mingw-w64-x86_64-make"
+bash -lc "pacman --noconfirm -S --needed mingw-w64-x86_64-libusb mingw-w64-x86_64-jasper"
+bash -lc "pacman --noconfirm -S --needed mingw-w64-x86_64-qt5-static"
 
 rem Invoke subsequent bash in the build tree
 cd %APPVEYOR_BUILD_FOLDER%
 set CHERE_INVOKING=yes
 
 rem Build/test scripting
-bash -xlc "set pwd"
-bash -xlc "env"
-bash -xlc "./build.sh"
+bash -lc "mkdir build && cd build && /c/msys64/mingw64/qt5-static/bin/qmake.exe ../YAXF.pro"
+bash -lc "sed -i 's/\.\.\/\.\.\/\.\.\/\.\.\//\.\.\/\.\.\/\.\.\//' build/Makefile.{Debug,Release}"
+:: rem Build Debug
+:: bash -lc "cd build && make -j debug"
+rem Build Release
+bash -lc "cd build && make -j release"
+rem Output build folder file listing
+:: bash -lc "mkdir debug && cp build/debug/YAXF.exe ./debug/"
+bash -lc "mkdir release && cp build/release/YAXF.exe ./release/"
