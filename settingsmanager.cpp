@@ -35,6 +35,17 @@ void settingsManager::storeSetting(QString const& key, QVariant const& variant){
 const QStringList settingsManager::genArgs(settings *sett,
                                            QString const& path,
                                            QVector<libusb_device*> const& xbox_controllers){
+    QString accel = "";
+    
+#ifdef __linux
+    accel = (sett->kvm ? ",accel=kvm,kernel_irqchip=off":"");
+#endif
+#ifdef _WIN32
+    accel = (sett->kvm ? ",accel=haxm":"");
+#endif
+#ifdef __APPLE__
+    accel = (sett->kvm ? ",accel=haxm":"");
+#endif
     QStringList args;
     QVector<bool> ctrlr_plugged{sett->c_1_plugged, sett->c_2_plugged, sett->c_3_plugged, sett->c_4_plugged};
     QVector<int> ctrlr_indices{sett->ctrl_1, sett->ctrl_2, sett->ctrl_3, sett->ctrl_4};
@@ -42,15 +53,7 @@ const QStringList settingsManager::genArgs(settings *sett,
     args << "-cpu" << "pentium3";
     args << "-machine" << "xbox,bootrom=" + sett->mcpx_path +
             (sett->full_boot_anim ? "":",short_animation") +
-#ifdef __linux
-            (sett->kvm ? ",accel=kvm,kernel_irqchip=off":"");
-#endif
-#ifdef __win32
-            (sett->kvm ? ",accel=haxm":"");
-#endif
-#ifdef __APPLE__
-            (sett->kvm ? ",accel=haxm":"");
-#endif
+            accel;
     args << "-m" << (sett->expanded_ram ? "128":"64");
     args << "-bios" << sett->flash_path;
     args << "-drive" << "file=" + sett->hdd_path + ",index=0,media=disk" +

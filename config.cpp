@@ -29,9 +29,7 @@ Config::Config(QWidget *parent, settings *sett,
     ui->controller_bool_3->setChecked(sett->c_3_plugged);
     ui->controller_bool_4->setChecked(sett->c_4_plugged);
     ui->enable_kvm->setChecked(sett->kvm);
-#ifndef __linux
-    ui->enable_kvm->setVisible(false);
-#endif
+
     libusb_device_descriptor desc;
     for(int q(0); q < controllers->size(); ++q){
         libusb_device *p = controllers->at(q);
