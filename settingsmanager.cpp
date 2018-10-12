@@ -23,11 +23,7 @@ void settingsManager::initSettings(settings *sett){
     sett->c_2_plugged = settingsFile.value("C2Plugged", false).toBool();
     sett->c_3_plugged = settingsFile.value("C3Plugged", false).toBool();
     sett->c_4_plugged = settingsFile.value("C4Plugged", false).toBool();
-#ifdef __linux
     sett->kvm = settingsFile.value("enableKVM", false).toBool();
-#else
-    sett->kvm = false;
-#endif
 }
 
 void settingsManager::storeSetting(QString const& key, QVariant const& variant){
@@ -46,7 +42,15 @@ const QStringList settingsManager::genArgs(settings *sett,
     args << "-cpu" << "pentium3";
     args << "-machine" << "xbox,bootrom=" + sett->mcpx_path +
             (sett->full_boot_anim ? "":",short_animation") +
+#ifdef __linux
             (sett->kvm ? ",accel=kvm,kernel_irqchip=off":"");
+#endif
+#ifdef __win32
+            (sett->kvm ? ",accel=haxm":"");
+#endif
+#ifdef __APPLE__
+            (sett->kvm ? ",accel=haxm":"");
+#endif
     args << "-m" << (sett->expanded_ram ? "128":"64");
     args << "-bios" << sett->flash_path;
     args << "-drive" << "file=" + sett->hdd_path + ",index=0,media=disk" +

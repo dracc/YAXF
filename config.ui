@@ -288,7 +288,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Enable KVM</string>
+      <string>Enable CPU Acceleration</string>
      </property>
     </widget>
    </widget>
