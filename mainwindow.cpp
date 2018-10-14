@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     sett = new settings;
-    initSettings(sett);
+    settingsManager::initSettings(sett);
 
     libusb_init(&context);
     num_devices = libusb_get_device_list(context, &device_list);
@@ -43,6 +43,7 @@ MainWindow::~MainWindow()
 {
     libusb_free_device_list(device_list, num_devices);
     libusb_exit(context);
+    delete sett;
     delete ui;
 }
 
@@ -63,33 +64,8 @@ void MainWindow::on_actionQuit_triggered()
 
 void MainWindow::RunGame(QString const& path){
     QProcess *process = new QProcess();
-    QStringList args;
-    QVector<bool> ctrlr_plugged{sett->c_1_plugged, sett->c_2_plugged, sett->c_3_plugged, sett->c_4_plugged};
-    QVector<int> ctrlr_indices{sett->ctrl_1, sett->ctrl_2, sett->ctrl_3, sett->ctrl_4};
-    QVector<int> ctrlr_port{3,4,1,2};
-    args << "-cpu" << "pentium3";
-    args << "-machine" << "xbox,bootrom=" + sett->mcpx_path + (sett->full_boot_anim ? "":",short_animation");
-    args << QString("-m") << QString(sett->expanded_ram ? "128":"64");
-    args << "-bios" << sett->flash_path;
-    args << "-drive" << "file=" + sett->hdd_path + ",index=0,media=disk" + (sett->hdd_unlocked ? "" : ",locked");
-    args << "-drive" << "file=" + path + ",index=1,media=cdrom";
-    args << "-net" << "nic,model=nvnet" << "-net" << "user,hostfwd=tcp::9269-:9269,hostfwd=tcp::8731-:731";
-    for(int i = 0; i < 4; i++){
-        if(ctrlr_plugged[i]){
-            if(ctrlr_indices[i] >= 2){
-                int hostbus = libusb_get_bus_number(xbox_controllers.at(ctrlr_indices[i] - 2));
-                int hostaddr = libusb_get_device_address(xbox_controllers.at(ctrlr_indices[i] - 2));
-                args << "-usb" << "-device"
-                     << "usb-host,port=" + QString::number(ctrlr_port[i]) + ",hostbus=" + QString::number(hostbus) +
-                        ",hostaddr=" + QString::number(hostaddr);
-            }
-            else{
-                args << "-usb" << "-device" << "usb-xbox-gamepad,port=" + QString::number(ctrlr_port[i]);
-            }
-        }
-    }
-    args << "-display" << "sdl";
-    std::cout << sett->bin_path.toStdString() << " " << std::flush;
+    QStringList args = settingsManager::genArgs(sett, path, xbox_controllers);
+    std::cout << "\n" << sett->bin_path.toStdString() << " " << std::flush;
     for(auto q: args){
         std::cout << q.toStdString() << " " << std::flush;
     }
@@ -101,7 +77,7 @@ void MainWindow::RunGame(QString const& path){
 
 void MainWindow::on_actionRun_ISO_triggered()
 {
-    QString image_path = QFileDialog::getOpenFileName(this, "", "/home/dracc/Emulation/Xbox/Superdisc.iso");
+    QString image_path = QFileDialog::getOpenFileName(this, "", sett->xiso_path);
     if(image_path != ""){
         RunGame(image_path);
     }

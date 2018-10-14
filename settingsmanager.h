@@ -5,9 +5,19 @@
 
 #include <QStandardPaths>
 #include <QSettings>
+#include <QVector>
 
-void initSettings(settings *sett);
+extern "C" {
+#include <libusb-1.0/libusb.h>
+}
 
-void storeSetting(QString const& key, QVariant const& variant);
+namespace settingsManager{
 
+    void initSettings(settings *sett);
+
+    void storeSetting(QString const& key, QVariant const& variant);
+
+    const QStringList genArgs(settings *sett, QString const& path,
+                              QVector<libusb_device*> const& xbox_controllers);
+}
 #endif // SETTINGSMANAGER_H
