@@ -70,9 +70,13 @@ void MainWindow::RunGame(QString const& path){
         std::cout << q.toStdString() << " " << std::flush;
     }
     std::cout << std::endl;
-    connect(process, &QProcess::started, [&](){this->hide();});
-    connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), [&](){this->show();});
+    process->setProcessChannelMode(QProcess::ForwardedChannels);
     process->start(sett->bin_path, args);
+
+    if(process->waitForStarted()){
+        connect(process, &QProcess::started, [&](){this->hide();});
+        connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), [&](){this->show();});
+    }
 }
 
 void MainWindow::on_actionRun_ISO_triggered()
