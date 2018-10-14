@@ -23,7 +23,7 @@ void settingsManager::initSettings(settings *sett){
     sett->c_2_plugged = settingsFile.value("C2Plugged", false).toBool();
     sett->c_3_plugged = settingsFile.value("C3Plugged", false).toBool();
     sett->c_4_plugged = settingsFile.value("C4Plugged", false).toBool();
-    sett->kvm = settingsFile.value("enableKVM", false).toBool();
+    sett->cpuaccel = settingsFile.value("enableCPUaccel", false).toBool();
 }
 
 void settingsManager::storeSetting(QString const& key, QVariant const& variant){
@@ -38,13 +38,13 @@ const QStringList settingsManager::genArgs(settings *sett,
     QString accel = "";
     
 #ifdef __linux
-    accel = (sett->kvm ? ",accel=kvm,kernel_irqchip=off":"");
+    accel = (sett->cpuaccel ? ",accel=kvm,kernel_irqchip=off":"");
 #endif
 #ifdef _WIN32
-    accel = (sett->kvm ? ",accel=haxm":"");
+    accel = (sett->cpuaccel ? ",accel=haxm":"");
 #endif
 #ifdef __APPLE__
-    accel = (sett->kvm ? ",accel=haxm":"");
+    accel = (sett->cpuaccel ? ",accel=haxm":"");
 #endif
     QStringList args;
     QVector<bool> ctrlr_plugged{sett->c_1_plugged, sett->c_2_plugged, sett->c_3_plugged, sett->c_4_plugged};

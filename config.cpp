@@ -28,7 +28,7 @@ Config::Config(QWidget *parent, settings *sett,
     ui->controller_bool_2->setChecked(sett->c_2_plugged);
     ui->controller_bool_3->setChecked(sett->c_3_plugged);
     ui->controller_bool_4->setChecked(sett->c_4_plugged);
-    ui->enable_kvm->setChecked(sett->kvm);
+    ui->enable_cpuaccel->setChecked(sett->cpuaccel);
 
     libusb_device_descriptor desc;
     for(int q(0); q < controllers->size(); ++q){
@@ -79,7 +79,7 @@ void Config::on_buttonBox_accepted()
     checkSetValue(sett->c_2_plugged, ui->controller_bool_2->isChecked(), "C2Plugged");
     checkSetValue(sett->c_3_plugged, ui->controller_bool_3->isChecked(), "C3Plugged");
     checkSetValue(sett->c_4_plugged, ui->controller_bool_4->isChecked(), "C4Plugged");
-    checkSetValue(sett->kvm, ui->enable_kvm->isChecked(), "enableKVM");
+    checkSetValue(sett->cpuaccel, ui->enable_cpuaccel->isChecked(), "enableCPUaccel");
     checkSetValue(sett->ctrl_1, ui->controller_select_1->currentIndex(), "ctrl_1");
     checkSetValue(sett->ctrl_2, ui->controller_select_2->currentIndex(), "ctrl_2");
     checkSetValue(sett->ctrl_3, ui->controller_select_3->currentIndex(), "ctrl_3");

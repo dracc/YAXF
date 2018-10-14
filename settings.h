@@ -21,7 +21,7 @@ public:
     bool c_2_plugged = false;
     bool c_3_plugged = false;
     bool c_4_plugged = false;
-    bool kvm = false;
+    bool cpuaccel = false;
 };
 
 #endif // SETTINGS_H
