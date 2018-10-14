@@ -1,6 +1,6 @@
 #include "settingsmanager.h"
 
-void initSettings(settings *sett){
+void settingsManager::initSettings(settings *sett){
     // Open settings file
     QSettings settingsFile(QStandardPaths::standardLocations(QStandardPaths::AppConfigLocation).first() + "/settings.cfg", QSettings::IniFormat);
 
@@ -23,10 +23,59 @@ void initSettings(settings *sett){
     sett->c_2_plugged = settingsFile.value("C2Plugged", false).toBool();
     sett->c_3_plugged = settingsFile.value("C3Plugged", false).toBool();
     sett->c_4_plugged = settingsFile.value("C4Plugged", false).toBool();
+    sett->cpuaccel = settingsFile.value("enableCPUaccel", false).toBool();
 }
 
-void storeSetting(QString const& key, QVariant const& variant){
+void settingsManager::storeSetting(QString const& key, QVariant const& variant){
     // Open settings file
     QSettings settingsFile(QStandardPaths::standardLocations(QStandardPaths::AppConfigLocation).first()+ "/settings.cfg", QSettings::IniFormat);
     settingsFile.setValue(key, variant);
+}
+
+const QStringList settingsManager::genArgs(settings *sett,
+                                           QString const& path,
+                                           QVector<libusb_device*> const& xbox_controllers){
+    QString accel = "";
+    
+#ifdef __linux
+    accel = (sett->cpuaccel ? ",accel=kvm,kernel_irqchip=off":"");
+#endif
+#ifdef _WIN32
+    accel = (sett->cpuaccel ? ",accel=haxm":"");
+#endif
+#ifdef __APPLE__
+    accel = (sett->cpuaccel ? ",accel=haxm":"");
+#endif
+    QStringList args;
+    QVector<bool> ctrlr_plugged{sett->c_1_plugged, sett->c_2_plugged, sett->c_3_plugged, sett->c_4_plugged};
+    QVector<int> ctrlr_indices{sett->ctrl_1, sett->ctrl_2, sett->ctrl_3, sett->ctrl_4};
+    QVector<int> ctrlr_port{3,4,1,2};
+    args << "-cpu" << "pentium3";
+    args << "-machine" << "xbox,bootrom=" + sett->mcpx_path +
+            (sett->full_boot_anim ? "":",short_animation") +
+            accel;
+    args << "-m" << (sett->expanded_ram ? "128":"64");
+    args << "-bios" << sett->flash_path;
+    args << "-drive" << "file=" + sett->hdd_path + ",index=0,media=disk" +
+            (sett->hdd_unlocked ? "" : ",locked");
+    args << "-drive" << "file=" + path + ",index=1,media=cdrom";
+    args << "-net" << "nic,model=nvnet" << "-net" << "user,hostfwd=tcp::9269-:9269,hostfwd=tcp::8731-:731";
+    for(int i = 0; i < 4; i++){
+        if(ctrlr_plugged[i]){
+            if(ctrlr_indices[i] >= 2){
+                int hostbus = libusb_get_bus_number(xbox_controllers.at(ctrlr_indices[i] - 2));
+                int hostaddr = libusb_get_device_address(xbox_controllers.at(ctrlr_indices[i] - 2));
+                args << "-usb" << "-device"
+                     << "usb-host,port=" + QString::number(ctrlr_port[i]) +
+                        ",hostbus=" + QString::number(hostbus) +
+                        ",hostaddr=" + QString::number(hostaddr);
+            }
+            else{
+                args << "-usb" << "-device" << "usb-xbox-gamepad,port=" +
+                        QString::number(ctrlr_port[i]);
+            }
+        }
+    }
+    args << "-display" << "sdl";
+    return args;
 }

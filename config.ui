@@ -278,6 +278,19 @@
       <string>Unlocked HDD</string>
      </property>
     </widget>
+    <widget class="QCheckBox" name="enable_kvm">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>140</y>
+       <width>221</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Enable CPU Acceleration</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_3">
     <attribute name="title">

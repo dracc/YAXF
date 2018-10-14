@@ -28,11 +28,13 @@ Config::Config(QWidget *parent, settings *sett,
     ui->controller_bool_2->setChecked(sett->c_2_plugged);
     ui->controller_bool_3->setChecked(sett->c_3_plugged);
     ui->controller_bool_4->setChecked(sett->c_4_plugged);
+    ui->enable_kvm->setChecked(sett->cpuaccel);
+
     libusb_device_descriptor desc;
     for(int q(0); q < controllers->size(); ++q){
         libusb_device *p = controllers->at(q);
         desc = {0};
-        int y = libusb_get_device_descriptor(p, &desc);
+        libusb_get_device_descriptor(p, &desc);
         QString DeviceName;
         if(desc.idProduct == 0x202){
             DeviceName = "Xbox Duke";
@@ -50,6 +52,8 @@ Config::Config(QWidget *parent, settings *sett,
     ui->controller_select_2->setCurrentIndex(sett->ctrl_2);
     ui->controller_select_3->setCurrentIndex(sett->ctrl_3);
     ui->controller_select_4->setCurrentIndex(sett->ctrl_4);
+
+    args = settingsManager::genArgs(sett, "<.iso>", *controllers);
 }
 
 Config::~Config()
@@ -57,23 +61,29 @@ Config::~Config()
     delete ui;
 }
 
-void checkSetBool(bool &stored_val, bool const check_val, QString const& iniVal){
+template<typename T>
+void checkSetValue(T &stored_val, T const check_val, QString const& iniVal){
     if(stored_val != check_val){
-        stored_val = !stored_val;
-        storeSetting(iniVal, stored_val);
+        stored_val = check_val;
+        settingsManager::storeSetting(iniVal, stored_val);
     }
 }
 
 
 void Config::on_buttonBox_accepted()
 {
-    checkSetBool(sett->expanded_ram, ui->expand_ram->isChecked(), "expandedRAM");
-    checkSetBool(sett->full_boot_anim, ui->full_boot_anim->isChecked(), "fullBootAnim");
-    checkSetBool(sett->hdd_unlocked, ui->hdd_unlocked->isChecked(), "hddUnlocked");
-    checkSetBool(sett->c_1_plugged, ui->controller_bool_1->isChecked(), "C1Plugged");
-    checkSetBool(sett->c_2_plugged, ui->controller_bool_2->isChecked(), "C2Plugged");
-    checkSetBool(sett->c_3_plugged, ui->controller_bool_3->isChecked(), "C3Plugged");
-    checkSetBool(sett->c_4_plugged, ui->controller_bool_4->isChecked(), "C4Plugged");
+    checkSetValue(sett->expanded_ram, ui->expand_ram->isChecked(), "expandedRAM");
+    checkSetValue(sett->full_boot_anim, ui->full_boot_anim->isChecked(), "fullBootAnim");
+    checkSetValue(sett->hdd_unlocked, ui->hdd_unlocked->isChecked(), "hddUnlocked");
+    checkSetValue(sett->c_1_plugged, ui->controller_bool_1->isChecked(), "C1Plugged");
+    checkSetValue(sett->c_2_plugged, ui->controller_bool_2->isChecked(), "C2Plugged");
+    checkSetValue(sett->c_3_plugged, ui->controller_bool_3->isChecked(), "C3Plugged");
+    checkSetValue(sett->c_4_plugged, ui->controller_bool_4->isChecked(), "C4Plugged");
+    checkSetValue(sett->cpuaccel, ui->enable_kvm->isChecked(), "enableCPUaccel");
+    checkSetValue(sett->ctrl_1, ui->controller_select_1->currentIndex(), "ctrl_1");
+    checkSetValue(sett->ctrl_2, ui->controller_select_2->currentIndex(), "ctrl_2");
+    checkSetValue(sett->ctrl_3, ui->controller_select_3->currentIndex(), "ctrl_3");
+    checkSetValue(sett->ctrl_4, ui->controller_select_4->currentIndex(), "ctrl_4");
 }
 
 void Config::on_bin_browse_button_clicked()
@@ -82,7 +92,7 @@ void Config::on_bin_browse_button_clicked()
     if(tmp != ""){
         sett->bin_path = tmp;
         ui->bin_input_box->setText(sett->bin_path);
-        storeSetting("binPath", tmp);
+        settingsManager::storeSetting("binPath", tmp);
     }
 }
 
@@ -92,7 +102,7 @@ void Config::on_mcpx_browse_button_clicked()
     if(tmp != ""){
         sett->mcpx_path = tmp;
         ui->mcpx_input_box->setText(sett->mcpx_path);
-        storeSetting("mcpxPath", tmp);
+        settingsManager::storeSetting("mcpxPath", tmp);
     }
 }
 
@@ -102,7 +112,7 @@ void Config::on_flash_browse_button_clicked()
     if(tmp != ""){
         sett->flash_path = tmp;
         ui->flash_input_box->setText(sett->flash_path);
-        storeSetting("flashPath", tmp);
+        settingsManager::storeSetting("flashPath", tmp);
     }
 }
 
@@ -112,32 +122,8 @@ void Config::on_hdd_browse_button_clicked()
     if(tmp != ""){
         sett->hdd_path = tmp;
         ui->hdd_input_box->setText(sett->hdd_path);
-        storeSetting("hddPath", tmp);
+        settingsManager::storeSetting("hddPath", tmp);
     }
-}
-
-void Config::on_controller_select_1_currentIndexChanged(int index)
-{
-    sett->ctrl_1 = index;
-    storeSetting("ctrl_1", index);
-}
-
-void Config::on_controller_select_2_currentIndexChanged(int index)
-{
-    sett->ctrl_2 = index;
-    storeSetting("ctrl_2", index);
-}
-
-void Config::on_controller_select_3_currentIndexChanged(int index)
-{
-    sett->ctrl_3 = index;
-    storeSetting("ctrl_3", index);
-}
-
-void Config::on_controller_select_4_currentIndexChanged(int index)
-{
-    sett->ctrl_4 = index;
-    storeSetting("ctrl_4", index);
 }
 
 void Config::on_xiso_browse_button_clicked()
@@ -146,6 +132,6 @@ void Config::on_xiso_browse_button_clicked()
     if(tmp != ""){
         sett->xiso_path = tmp;
         ui->xiso_input_box->setText(sett->xiso_path);
-        storeSetting("xisoPath", tmp);
+        settingsManager::storeSetting("xisoPath", tmp);
     }
 }
