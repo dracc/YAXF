@@ -88,7 +88,8 @@ void Config::on_buttonBox_accepted()
 
 void Config::on_bin_browse_button_clicked()
 {
-    QString tmp = QFileDialog::getOpenFileName(this);
+    QString tmp = QFileDialog::getOpenFileName(this, 0,
+					       sett->bin_path);
     if(tmp != ""){
         sett->bin_path = tmp;
         ui->bin_input_box->setText(sett->bin_path);
@@ -98,7 +99,8 @@ void Config::on_bin_browse_button_clicked()
 
 void Config::on_mcpx_browse_button_clicked()
 {
-    QString tmp = QFileDialog::getOpenFileName(this, 0, "", "Binary files (*.bin);;All files (*.*)");
+    QString tmp = QFileDialog::getOpenFileName(this, 0, sett->mcpx_path,
+					       "Binary files (*.bin);;All files (*.*)");
     if(tmp != ""){
         sett->mcpx_path = tmp;
         ui->mcpx_input_box->setText(sett->mcpx_path);
@@ -108,7 +110,8 @@ void Config::on_mcpx_browse_button_clicked()
 
 void Config::on_flash_browse_button_clicked()
 {
-    QString tmp = QFileDialog::getOpenFileName(this, 0, "", "Binary files (*.bin);;All files (*.*)");
+    QString tmp = QFileDialog::getOpenFileName(this, 0, sett->flash_path,
+					       "Binary files (*.bin);;All files (*.*)");
     if(tmp != ""){
         sett->flash_path = tmp;
         ui->flash_input_box->setText(sett->flash_path);
@@ -118,7 +121,8 @@ void Config::on_flash_browse_button_clicked()
 
 void Config::on_hdd_browse_button_clicked()
 {
-    QString tmp = QFileDialog::getOpenFileName(this, 0, "", "QCow2 files (*.qcow2);;All files (*.*)");
+    QString tmp = QFileDialog::getOpenFileName(this, 0, sett->hdd_path,
+					       "QCow2 files (*.qcow2);;All files (*.*)");
     if(tmp != ""){
         sett->hdd_path = tmp;
         ui->hdd_input_box->setText(sett->hdd_path);
@@ -128,7 +132,7 @@ void Config::on_hdd_browse_button_clicked()
 
 void Config::on_xiso_browse_button_clicked()
 {
-    QString tmp = QFileDialog::getExistingDirectory(this);
+  QString tmp = QFileDialog::getExistingDirectory(this, "", sett->xiso_path);
     if(tmp != ""){
         sett->xiso_path = tmp;
         ui->xiso_input_box->setText(sett->xiso_path);
