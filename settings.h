@@ -22,6 +22,7 @@ public:
     bool c_3_plugged = false;
     bool c_4_plugged = false;
     bool cpuaccel = false;
+    bool sdl_gl = false;
 };
 
 #endif // SETTINGS_H
