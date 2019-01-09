@@ -126,58 +126,43 @@
       <attribute name="title">
        <string>Flags</string>
       </attribute>
-      <widget class="QCheckBox" name="expand_ram">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>20</y>
-         <width>131</width>
-         <height>25</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>128 MB RAM</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="full_boot_anim">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>60</y>
-         <width>221</width>
-         <height>25</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Show full boot animation</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="hdd_unlocked">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>100</y>
-         <width>221</width>
-         <height>25</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Unlocked HDD</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="enable_kvm">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>140</y>
-         <width>221</width>
-         <height>25</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Enable CPU Acceleration</string>
-       </property>
-      </widget>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QCheckBox" name="expand_ram">
+         <property name="text">
+          <string>128 MB RAM</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="full_boot_anim">
+         <property name="text">
+          <string>Show full boot animation</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="hdd_unlocked">
+         <property name="text">
+          <string>Unlocked HDD</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="enable_kvm">
+         <property name="text">
+          <string>Enable CPU Acceleration</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="enable_gl">
+         <property name="text">
+          <string>Enable SDL OpenGL (WARNING: Only available in perf-wip branch)</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">

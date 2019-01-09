@@ -24,6 +24,7 @@ void settingsManager::initSettings(settings *sett){
     sett->c_3_plugged = settingsFile.value("C3Plugged", false).toBool();
     sett->c_4_plugged = settingsFile.value("C4Plugged", false).toBool();
     sett->cpuaccel = settingsFile.value("enableCPUaccel", false).toBool();
+    sett->sdl_gl = settingsFile.value("enableSDLGL", false).toBool();
 }
 
 void settingsManager::storeSetting(QString const& key, QVariant const& variant){
@@ -76,6 +77,6 @@ const QStringList settingsManager::genArgs(settings *sett,
             }
         }
     }
-    args << "-display" << "sdl,gl=on";
+    args << "-display" << "sdl" << (sett->sdl_gl ? ",gl=on": "");
     return args;
 }
