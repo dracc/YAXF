@@ -77,6 +77,6 @@ const QStringList settingsManager::genArgs(settings *sett,
             }
         }
     }
-    args << "-display" << "sdl" << (sett->sdl_gl ? ",gl=on": "");
+    args << "-display" << QString("sdl") + QString(sett->sdl_gl ? ",gl=on": "");
     return args;
 }
