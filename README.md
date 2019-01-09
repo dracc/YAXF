@@ -1,6 +1,6 @@
 # YAXF
 A simple yet powerful tool for configuring your XQEMU session.
-<a href="https://ci.appveyor.com/project/dracc/yaxf/branch/master/artifacts"><img src="https://ci.appveyor.com/api/projects/status/github/dracc/YAXF/branch/master"></a>
+[![Build status](https://ci.appveyor.com/api/projects/status/o62gfnq6q3wasia8/branch/master?svg=true)](https://ci.appveyor.com/project/dracc/yaxf/branch/master/artifacts)
 
 ## Requirements
 - Qt >= 5.8  
