@@ -37,6 +37,10 @@ private slots:
 
     void on_xiso_browse_button_clicked();
 
+    void on_extraArguments_textChanged();
+
+    void on_tabWidget_currentChanged(int index);
+
 private:
     settings *sett;
     QVector<libusb_device *> *controllers;
