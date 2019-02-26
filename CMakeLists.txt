@@ -26,10 +26,10 @@ target_compile_options(${PROJECT_NAME} PUBLIC -std=c++1y -Wall)
 pkg_check_modules(LIBUSB REQUIRED libusb-1.0)
 
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
-
-include_directories(${LIBUSB_INCLUDE_DIRS})
-message(SYSTEM ${LIBUSB_INCLUDE_DIRS})
+find_package(SDL2 REQUIRED)
+include_directories(${LIBUSB_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS})
+#message(SYSTEM ${LIBUSB_INCLUDE_DIRS})
 
 target_link_libraries(${PROJECT_NAME}
-    Qt5::Core Qt5::Widgets ${LIBUSB_LIBRARIES})
+    Qt5::Core Qt5::Widgets ${LIBUSB_LIBRARIES} ${SDL2_LIBRARIES})
 
