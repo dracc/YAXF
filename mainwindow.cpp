@@ -30,6 +30,11 @@ MainWindow::MainWindow(QWidget *parent) :
                 xbox_controllers.push_back(iterator);
             }
         }
+        else if(desc.idVendor == 0x046d){
+            if(desc.idProduct == 0xca8a){
+                xbox_controllers.push_back(iterator);
+            }
+        }
     }
     QDirIterator qdit(sett->xiso_path, QStringList() << "*.iso", QDir::Files, QDirIterator::Subdirectories);
     while(qdit.hasNext()){

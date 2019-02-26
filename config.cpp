@@ -40,8 +40,11 @@ Config::Config(QWidget *parent, settings *sett,
         if(desc.idProduct == 0x202){
             DeviceName = "Xbox Duke";
         }
-        else{
+        else if(desc.idProduct == 0x289){
             DeviceName = "Xbox Controller S";
+        }
+        else if(desc.idProduct == 0xca8a){
+            DeviceName = "Logitech Wheel";
         }
         ui->controller_select_1->addItem(DeviceName, q);
         ui->controller_select_2->addItem(DeviceName, q);
