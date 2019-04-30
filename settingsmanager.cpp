@@ -84,8 +84,10 @@ const QStringList settingsManager::genArgs(settings *sett,
                         ",hostaddr=" + QString::number(hostaddr);
             }
             else{
-                args << "-usb" << "-device" << "usb-xbox-gamepad,port=" +
-                        QString::number(ctrlr_port[i]);
+                args << "-device" << "usb-hub,port=" +
+                        QString::number(ctrlr_port[i]) <<
+                        "-device" << "usb-xbox-gamepad,port=" +
+                        QString::number(ctrlr_port[i]) + ".1";
             }
         }
     }
