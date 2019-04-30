@@ -1,6 +1,7 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
+#include <QStandardItem>
 #include <QString>
 
 struct settings{
@@ -23,6 +24,8 @@ public:
     bool c_4_plugged = false;
     bool cpuaccel = false;
     bool sdl_gl = false;
+    QString netRules{""};
+    QStandardItemModel *netRulesModel;
 };
 
 #endif // SETTINGS_H

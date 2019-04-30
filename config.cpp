@@ -5,6 +5,7 @@
 #include <string>
 #include <QPair>
 #include <QVector>
+#include <QStandardItem>
 
 Config::Config(QWidget *parent, settings *sett,
                QVector<libusb_device *> *controllers, int tabselect) :
@@ -30,11 +31,12 @@ Config::Config(QWidget *parent, settings *sett,
     ui->controller_bool_4->setChecked(sett->c_4_plugged);
     ui->enable_kvm->setChecked(sett->cpuaccel);
     ui->enable_gl->setChecked(sett->sdl_gl);
+    ui->netRules->setModel(sett->netRulesModel);
 
     libusb_device_descriptor desc;
     for(int q(0); q < controllers->size(); ++q){
         libusb_device *p = controllers->at(q);
-        desc = {0};
+        desc = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         libusb_get_device_descriptor(p, &desc);
         QString DeviceName;
         if(desc.idProduct == 0x202){
@@ -86,11 +88,12 @@ void Config::on_buttonBox_accepted()
     checkSetValue(sett->ctrl_2, ui->controller_select_2->currentIndex(), "ctrl_2");
     checkSetValue(sett->ctrl_3, ui->controller_select_3->currentIndex(), "ctrl_3");
     checkSetValue(sett->ctrl_4, ui->controller_select_4->currentIndex(), "ctrl_4");
+    checkSetValue(sett->netRules, settingsManager::netRulesModelToString(sett), "netRules");
 }
 
 void Config::on_bin_browse_button_clicked()
 {
-    QString tmp = QFileDialog::getOpenFileName(this, 0,
+    QString tmp = QFileDialog::getOpenFileName(this, nullptr,
 					       sett->bin_path);
     if(tmp != ""){
         sett->bin_path = tmp;
@@ -101,7 +104,7 @@ void Config::on_bin_browse_button_clicked()
 
 void Config::on_mcpx_browse_button_clicked()
 {
-    QString tmp = QFileDialog::getOpenFileName(this, 0, sett->mcpx_path,
+    QString tmp = QFileDialog::getOpenFileName(this, nullptr, sett->mcpx_path,
 					       "Binary files (*.bin);;All files (*.*)");
     if(tmp != ""){
         sett->mcpx_path = tmp;
@@ -112,7 +115,7 @@ void Config::on_mcpx_browse_button_clicked()
 
 void Config::on_flash_browse_button_clicked()
 {
-    QString tmp = QFileDialog::getOpenFileName(this, 0, sett->flash_path,
+    QString tmp = QFileDialog::getOpenFileName(this, nullptr, sett->flash_path,
 					       "Binary files (*.bin);;All files (*.*)");
     if(tmp != ""){
         sett->flash_path = tmp;
@@ -123,7 +126,7 @@ void Config::on_flash_browse_button_clicked()
 
 void Config::on_hdd_browse_button_clicked()
 {
-    QString tmp = QFileDialog::getOpenFileName(this, 0, sett->hdd_path,
+    QString tmp = QFileDialog::getOpenFileName(this, nullptr, sett->hdd_path,
 					       "QCow2 files (*.qcow2);;All files (*.*)");
     if(tmp != ""){
         sett->hdd_path = tmp;
@@ -157,4 +160,32 @@ void Config::on_tabWidget_currentChanged(int index)
         args = settingsManager::genArgs(sett, "<.iso>", *controllers);
         on_extraArguments_textChanged();
     }
+}
+
+void Config::on_addNetworkRule_button_clicked()
+{
+    sett->netRulesModel->insertRow(sett->netRulesModel->rowCount());
+}
+
+void Config::on_remNetworkRule_button_clicked()
+{
+    sett->netRulesModel->removeRow(ui->netRules->currentIndex().row());
+}
+
+void Config::on_resNetworkRule_button_clicked()
+{
+    sett->netRulesModel->clear();
+    sett->netRulesModel->setHorizontalHeaderLabels({"Protocol", "Guest", "Host"});
+    insertNetRule("tcp", "20", "2020");
+    insertNetRule("tcp", "21", "2021");
+    //insertNetRule("", "", "");
+}
+
+void Config::insertNetRule(QString name, QString guest, QString host)
+{
+    sett->netRulesModel->insertRow(sett->netRulesModel->rowCount());
+    int i = sett->netRulesModel->rowCount() - 1;
+    sett->netRulesModel->setItem(i, 0, new QStandardItem(name));
+    sett->netRulesModel->setItem(i, 1, new QStandardItem(guest));
+    sett->netRulesModel->setItem(i, 2, new QStandardItem(host));
 }

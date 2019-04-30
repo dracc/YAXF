@@ -1,4 +1,4 @@
-#ifndef CONFIG_H
+﻿#ifndef CONFIG_H
 #define CONFIG_H
 
 #include "settings.h"
@@ -9,6 +9,9 @@ extern "C"{
 }
 
 #include <QDialog>
+#include <QTableWidget>
+#include <QAbstractTableModel>
+#include <QStandardItem>
 
 namespace Ui {
 class Config;
@@ -19,7 +22,7 @@ class Config : public QDialog
     Q_OBJECT
 
 public:
-    explicit Config(QWidget *parent = 0, settings* sett = nullptr,
+    explicit Config(QWidget *parent = nullptr, settings* sett = nullptr,
                     QVector<libusb_device *> *controllers = nullptr, int tabselect = 0);
     ~Config();
 
@@ -41,10 +44,18 @@ private slots:
 
     void on_tabWidget_currentChanged(int index);
 
+    void on_addNetworkRule_button_clicked();
+
+    void on_remNetworkRule_button_clicked();
+
+    void on_resNetworkRule_button_clicked();
+
 private:
     settings *sett;
     QVector<libusb_device *> *controllers;
     QStringList args;
+
+    void insertNetRule(QString name, QString guest, QString host);
 };
 
 #endif // CONFIG_H

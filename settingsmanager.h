@@ -19,5 +19,9 @@ namespace settingsManager{
 
     const QStringList genArgs(settings *sett, QString const& path,
                               QVector<libusb_device*> const& xbox_controllers);
+
+    QStandardItemModel* netRulesModelFromString(settings *sett);
+
+    QString netRulesModelToString(settings *sett);
 }
 #endif // SETTINGSMANAGER_H

@@ -25,6 +25,8 @@ void settingsManager::initSettings(settings *sett){
     sett->c_4_plugged = settingsFile.value("C4Plugged", false).toBool();
     sett->cpuaccel = settingsFile.value("enableCPUaccel", false).toBool();
     sett->sdl_gl = settingsFile.value("enableSDLGL", false).toBool();
+    sett->netRules = settingsFile.value("netRules", "").toString();
+    sett->netRulesModel = netRulesModelFromString(sett);
 }
 
 void settingsManager::storeSetting(QString const& key, QVariant const& variant){
@@ -60,7 +62,17 @@ const QStringList settingsManager::genArgs(settings *sett,
     args << "-drive" << "file=" + sett->hdd_path + ",index=0,media=disk" +
             (sett->hdd_unlocked ? "" : ",locked");
     args << "-drive" << "file=" + path + ",index=1,media=cdrom";
-    args << "-net" << "nic,model=nvnet" << "-net" << "user,hostfwd=tcp::9269-:9269,hostfwd=tcp::8731-:731";
+    if (sett->netRulesModel->rowCount() > 0) {
+        args << "-net" << "nic,model=nvnet" << "-net";
+        QString netRules = "user";
+        for (int i = 0; i < sett->netRulesModel->rowCount(); ++i) {
+            QString protocol = sett->netRulesModel->item(i, 0)->text();
+            QString guestport = sett->netRulesModel->item(i, 1)->text();
+            QString hostport = sett->netRulesModel->item(i, 2)->text();
+            netRules += ",hostfwd=" + protocol + "::" + hostport + "-:" + guestport;
+        }
+        args << netRules;
+    }
     for(int i = 0; i < 4; i++){
         if(ctrlr_plugged[i]){
             if(ctrlr_indices[i] >= 2){
@@ -79,4 +91,37 @@ const QStringList settingsManager::genArgs(settings *sett,
     }
     args << "-display" << QString("sdl") + QString(sett->sdl_gl ? ",gl=on": "");
     return args;
+}
+
+QStandardItemModel *settingsManager::netRulesModelFromString(settings *sett)
+{
+    auto ret = new QStandardItemModel(0, 3);
+    ret->setHorizontalHeaderLabels({"Protocol", "Guest port", "Host port"});
+    if (sett->netRules == "") {
+        return ret;
+    }
+    QStringList splitValues = sett->netRules.split(" ");
+    int numRows = splitValues[0].toInt();
+    splitValues.pop_front();
+    for (int i = 0; i < numRows; ++i) {
+        ret->insertRow(i);
+        int q = i * 3;
+        ret->setItem(i, 0, new QStandardItem(splitValues[q]));
+        ret->setItem(i, 1, new QStandardItem(splitValues[q+1]));
+        ret->setItem(i, 2, new QStandardItem(splitValues[q+2]));
+    }
+    return ret;
+}
+
+QString settingsManager::netRulesModelToString(settings *sett)
+{
+    QStringList ret;
+    int rows = sett->netRulesModel->rowCount();
+    ret << QString::number(rows);
+    for (int i = 0; i < rows; ++i) {
+        ret << sett->netRulesModel->item(i, 0)->text();
+        ret << sett->netRulesModel->item(i, 1)->text();
+        ret << sett->netRulesModel->item(i, 2)->text();
+    }
+    return ret.join(" ");
 }
