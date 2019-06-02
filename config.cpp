@@ -1,6 +1,7 @@
 #include "config.h"
 #include "ui_config.h"
 
+#include <SDL2/SDL.h>
 #include <QFileDialog>
 #include <string>
 #include <QPair>
@@ -14,6 +15,7 @@ Config::Config(QWidget *parent, settings *sett,
     controllers(controllers)
 
 {
+    SDL_Init(SDL_INIT_JOYSTICK);
     ui->setupUi(this);
     ui->tabWidget->setCurrentIndex(tabselect);
     ui->bin_input_box->setText(sett->bin_path);
@@ -47,6 +49,13 @@ Config::Config(QWidget *parent, settings *sett,
         ui->controller_select_2->addItem(DeviceName, q);
         ui->controller_select_3->addItem(DeviceName, q);
         ui->controller_select_4->addItem(DeviceName, q);
+    }
+
+    for (int q(0); q < SDL_NumJoysticks(); ++q){
+        ui->controller_select_1->addItem(SDL_JoystickNameForIndex(q), q+controllers->size());
+        ui->controller_select_2->addItem(SDL_JoystickNameForIndex(q), q+controllers->size());
+        ui->controller_select_3->addItem(SDL_JoystickNameForIndex(q), q+controllers->size());
+        ui->controller_select_4->addItem(SDL_JoystickNameForIndex(q), q+controllers->size());
     }
 
     ui->controller_select_1->setCurrentIndex(sett->ctrl_1);
