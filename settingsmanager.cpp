@@ -78,8 +78,11 @@ const QStringList settingsManager::genArgs(settings *sett,
             if(ctrlr_indices[i] >= 2){
                 int hostbus = libusb_get_bus_number(xbox_controllers.at(ctrlr_indices[i] - 2));
                 int hostaddr = libusb_get_device_address(xbox_controllers.at(ctrlr_indices[i] - 2));
-                args << "-usb" << "-device"
-                     << "usb-host,port=" + QString::number(ctrlr_port[i]) +
+                args << "-usb"
+                     << "-device" << "usb-hub,port=" +
+                        QString::number(ctrlr_port[i])
+                     << "-device"
+                     << "usb-host,port=" + QString::number(ctrlr_port[i]) + ".1" +
                         ",hostbus=" + QString::number(hostbus) +
                         ",hostaddr=" + QString::number(hostaddr);
             }
