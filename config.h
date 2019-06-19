@@ -50,6 +50,8 @@ private slots:
 
     void on_resNetworkRule_button_clicked();
 
+    void on_eeprom_browse_button_clicked();
+
 private:
     settings *sett;
     QVector<libusb_device *> *controllers;

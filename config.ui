@@ -14,7 +14,7 @@
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
-   <item row="1" column="0">
+   <item row="2" column="0">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -27,48 +27,28 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
        <string>Paths</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="7" column="0">
-        <widget class="QLineEdit" name="flash_input_box"/>
-       </item>
-       <item row="7" column="1">
-        <widget class="QPushButton" name="flash_browse_button">
-         <property name="text">
-          <string>...</string>
-         </property>
-        </widget>
-       </item>
        <item row="9" column="0">
-        <widget class="QLineEdit" name="hdd_input_box"/>
-       </item>
-       <item row="9" column="1">
-        <widget class="QPushButton" name="hdd_browse_button">
+        <widget class="QLabel" name="hdd_label">
          <property name="text">
-          <string>...</string>
+          <string>HDD path</string>
          </property>
         </widget>
        </item>
-       <item row="11" column="0">
-        <widget class="QLineEdit" name="xiso_input_box">
+       <item row="4" column="0">
+        <widget class="QLabel" name="mcpx_label">
          <property name="text">
-          <string/>
+          <string>MCPX ROM path</string>
          </property>
         </widget>
        </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="flash_label">
-         <property name="text">
-          <string>Flash ROM path</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
+       <item row="0" column="2">
         <widget class="QPushButton" name="bin_browse_button">
          <property name="toolTip">
           <string>Browse for XQEMU bin</string>
@@ -78,38 +58,27 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QLineEdit" name="bin_input_box">
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="mcpx_input_box"/>
+       </item>
+       <item row="4" column="2">
+        <widget class="QPushButton" name="mcpx_browse_button">
          <property name="text">
-          <string/>
+          <string>...</string>
          </property>
         </widget>
        </item>
-       <item row="10" column="0">
+       <item row="11" column="0">
         <widget class="QLabel" name="xiso_label">
          <property name="text">
           <string>XISOs path</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="mcpx_label">
+       <item row="7" column="0">
+        <widget class="QLabel" name="flash_label">
          <property name="text">
-          <string>MCPX ROM path</string>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="0">
-        <widget class="QLabel" name="hdd_label">
-         <property name="text">
-          <string>HDD path</string>
-         </property>
-        </widget>
-       </item>
-       <item row="11" column="1">
-        <widget class="QPushButton" name="xiso_browse_button">
-         <property name="text">
-          <string>...</string>
+          <string>Flash ROM path</string>
          </property>
         </widget>
        </item>
@@ -120,11 +89,63 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="0">
-        <widget class="QLineEdit" name="mcpx_input_box"/>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="bin_input_box">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
        </item>
-       <item row="4" column="1">
-        <widget class="QPushButton" name="mcpx_browse_button">
+       <item row="7" column="1">
+        <widget class="QLineEdit" name="flash_input_box"/>
+       </item>
+       <item row="7" column="2">
+        <widget class="QPushButton" name="flash_browse_button">
+         <property name="text">
+          <string>...</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="1">
+        <widget class="QLineEdit" name="hdd_input_box"/>
+       </item>
+       <item row="9" column="2">
+        <widget class="QPushButton" name="hdd_browse_button">
+         <property name="text">
+          <string>...</string>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="1">
+        <widget class="QLineEdit" name="xiso_input_box">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="2">
+        <widget class="QPushButton" name="xiso_browse_button">
+         <property name="text">
+          <string>...</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="0">
+        <widget class="QLabel" name="eeprom_label">
+         <property name="text">
+          <string>EEPROM path</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="1">
+        <widget class="QLineEdit" name="eeprom_input_box">
+         <property name="placeholderText">
+          <string>(Optional)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="2">
+        <widget class="QPushButton" name="eeprom_browse_button">
          <property name="text">
           <string>...</string>
          </property>
@@ -421,7 +442,7 @@
      </widget>
      <widget class="QWidget" name="tab_5">
       <attribute name="title">
-       <string>Advanced</string>
+       <string>CLI</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>

@@ -12,6 +12,7 @@ void settingsManager::initSettings(settings *sett){
     sett->flash_path = settingsFile.value("flashPath", emulationPath + "/bios.bin").toString();
     sett->xiso_path = settingsFile.value("xisoPath", emulationPath + "/").toString();
     sett->hdd_path = settingsFile.value("hddPath", emulationPath + "/xbox_hdd.qcow2").toString();
+    sett->eeprom_path = settingsFile.value("eepromPath", "(Optional)").toString();
     sett->expanded_ram = settingsFile.value("expandedRAM", false).toBool();
     sett->full_boot_anim = settingsFile.value("fullBootAnim", false).toBool();
     sett->hdd_unlocked = settingsFile.value("hddUnlocked", false).toBool();
@@ -55,9 +56,9 @@ const QStringList settingsManager::genArgs(settings *sett,
     QVector<int> ctrlr_port{3,4,1,2};
     args << "-cpu" << "pentium3";
     args << "-machine" << "xbox,bootrom=" + sett->mcpx_path +
-            (sett->full_boot_anim ? "":",short_animation") +
-            accel;
-    args << "-m" << (sett->expanded_ram ? "128":"64");
+            (sett->full_boot_anim ? "" : ",short_animation") +
+            accel + ((sett->eeprom_path == "(Optional)") ? "" : ",eeprom=" + sett->eeprom_path);
+    args << "-m" << (sett->expanded_ram ? "128" : "64");
     args << "-bios" << sett->flash_path;
     args << "-drive" << "file=" + sett->hdd_path + ",index=0,media=disk" +
             (sett->hdd_unlocked ? "" : ",locked");
