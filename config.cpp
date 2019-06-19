@@ -22,6 +22,7 @@ Config::Config(QWidget *parent, settings *sett,
     ui->flash_input_box->setText(sett->flash_path);
     ui->hdd_input_box->setText(sett->hdd_path);
     ui->xiso_input_box->setText(sett->xiso_path);
+    ui->eeprom_input_box->setText(sett->eeprom_path);
     ui->expand_ram->setChecked(sett->expanded_ram);
     ui->full_boot_anim->setChecked(sett->full_boot_anim);
     ui->hdd_unlocked->setChecked(sett->hdd_unlocked);
@@ -188,4 +189,19 @@ void Config::insertNetRule(QString name, QString guest, QString host)
     sett->netRulesModel->setItem(i, 0, new QStandardItem(name));
     sett->netRulesModel->setItem(i, 1, new QStandardItem(guest));
     sett->netRulesModel->setItem(i, 2, new QStandardItem(host));
+}
+
+void Config::on_eeprom_browse_button_clicked()
+{
+    QString tmp = QFileDialog::getOpenFileName(this, nullptr, sett->eeprom_path,
+                                               "Binary files (*.bin);;All files (*.*)");
+    if (tmp != "") {
+        sett->eeprom_path = tmp;
+        ui->eeprom_input_box->setText(sett->eeprom_path);
+        settingsManager::storeSetting("eepromPath", tmp);
+    } else {
+        sett->eeprom_path = nullptr;
+        ui->eeprom_input_box->clear();
+        settingsManager::storeSetting("eepromPath", "(Optional)");
+    }
 }
