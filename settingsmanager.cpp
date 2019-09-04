@@ -61,7 +61,7 @@ const QStringList settingsManager::genArgs(settings *sett,
     args << "-bios" << sett->flash_path;
     args << "-drive" << "file=" + sett->hdd_path + ",index=0,media=disk" +
             (sett->hdd_unlocked ? "" : ",locked");
-    args << "-drive" << "file=" + path + ",index=1,media=cdrom";
+    args << "-drive" << (path != "" ? "file=" + path + "," : "") + "index=1,media=cdrom";
     if (sett->netRulesModel->rowCount() > 0) {
         args << "-net" << "nic,model=nvnet" << "-net";
         QString netRules = "user";
