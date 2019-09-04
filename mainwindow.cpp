@@ -37,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->listWidget->addItem(q);
     }
     ui->listWidget->sortItems();
+    ui->listWidget->insertItem(0, new QListWidgetItem(QIcon(":/dvd.svg"), ""));
 }
 
 MainWindow::~MainWindow()
