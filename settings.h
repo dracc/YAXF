@@ -23,6 +23,7 @@ public:
     bool c_2_plugged = false;
     bool c_3_plugged = false;
     bool c_4_plugged = false;
+    int avpack = 0;
     bool cpuaccel = false;
     bool sdl_gl = false;
     QString netRules{""};
