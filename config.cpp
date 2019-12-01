@@ -30,6 +30,7 @@ Config::Config(QWidget *parent, settings *sett,
     ui->controller_bool_2->setChecked(sett->c_2_plugged);
     ui->controller_bool_3->setChecked(sett->c_3_plugged);
     ui->controller_bool_4->setChecked(sett->c_4_plugged);
+    ui->avpack->setCurrentIndex(sett->avpack);
     ui->enable_kvm->setChecked(sett->cpuaccel);
     ui->enable_gl->setChecked(sett->sdl_gl);
     ui->netRules->setModel(sett->netRulesModel);
@@ -89,6 +90,7 @@ void Config::on_buttonBox_accepted()
     checkSetValue(sett->ctrl_2, ui->controller_select_2->currentIndex(), "ctrl_2");
     checkSetValue(sett->ctrl_3, ui->controller_select_3->currentIndex(), "ctrl_3");
     checkSetValue(sett->ctrl_4, ui->controller_select_4->currentIndex(), "ctrl_4");
+    checkSetValue(sett->avpack, ui->avpack->currentIndex(), "avpack");
     checkSetValue(sett->netRules, settingsManager::netRulesModelToString(sett), "netRules");
 }
 

@@ -24,6 +24,7 @@ void settingsManager::initSettings(settings *sett){
     sett->c_2_plugged = settingsFile.value("C2Plugged", false).toBool();
     sett->c_3_plugged = settingsFile.value("C3Plugged", false).toBool();
     sett->c_4_plugged = settingsFile.value("C4Plugged", false).toBool();
+    sett->avpack = settingsFile.value("avpack", 0).toInt();
     sett->cpuaccel = settingsFile.value("enableCPUaccel", false).toBool();
     sett->sdl_gl = settingsFile.value("enableSDLGL", false).toBool();
     sett->netRules = settingsFile.value("netRules", "").toString();
@@ -54,10 +55,12 @@ const QStringList settingsManager::genArgs(settings *sett,
     QVector<bool> ctrlr_plugged{sett->c_1_plugged, sett->c_2_plugged, sett->c_3_plugged, sett->c_4_plugged};
     QVector<int> ctrlr_indices{sett->ctrl_1, sett->ctrl_2, sett->ctrl_3, sett->ctrl_4};
     QVector<int> ctrlr_port{3,4,1,2};
+    QVector<QString> avpacks{"composite","scart","svideo","vga","rfu","hdtv","none"};
     args << "-cpu" << "pentium3";
     args << "-machine" << "xbox,bootrom=" + sett->mcpx_path +
             (sett->full_boot_anim ? "" : ",short_animation") +
-            accel + ((sett->eeprom_path == "(Optional)") ? "" : ",eeprom=" + sett->eeprom_path);
+            accel + ((sett->eeprom_path == "(Optional)") ? "" : ",eeprom=" + sett->eeprom_path) +
+            ",avpack=" + avpacks[sett->avpack];
     args << "-m" << (sett->expanded_ram ? "128" : "64");
     args << "-bios" << sett->flash_path;
     args << "-drive" << "file=" + sett->hdd_path + ",index=0,media=disk" +
